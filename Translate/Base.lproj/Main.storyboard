@@ -27,32 +27,39 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tk9-7M-DEK">
+                                <rect key="frame" x="123" y="577" width="129" height="39"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.24705882352941178" green="0.29019607843137257" blue="0.396078431372549" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Translate"/>
+                            </button>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XB8-Wi-aeR">
+                                <rect key="frame" x="16" y="391" width="343" height="155"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </pickerView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AJC-PY-afp">
+                                <rect key="frame" x="16" y="50" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" text="Translated" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="LaV-KV-DTJ">
-                                <rect key="frame" x="16" y="224" width="343" height="128"/>
+                                <rect key="frame" x="16" y="247" width="343" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="italicSystem" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tk9-7M-DEK">
-                                <rect key="frame" x="123" y="554" width="129" height="39"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.24705882352941178" green="0.29019607843137257" blue="0.396078431372549" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Translate"/>
-                                <connections>
-                                    <action selector="translate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="q10-rA-ich"/>
-                                </connections>
-                            </button>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XB8-Wi-aeR">
-                                <rect key="frame" x="16" y="360" width="343" height="155"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" red="0.32941176470588235" green="0.69411764705882351" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <connections>
-                        <outlet property="textToTranslate" destination="dii-Vg-90N" id="h8k-rw-rv8"/>
-                        <outlet property="translatedText" destination="LaV-KV-DTJ" id="t0z-Ui-5Rw"/>
+                        <outlet property="languageSelected" destination="AJC-PY-afp" id="F9u-uI-FUP"/>
+                        <outlet property="pickerView" destination="XB8-Wi-aeR" id="Jn0-0N-wLz"/>
+                        <outlet property="textToTranslate" destination="dii-Vg-90N" id="O5l-Ga-0De"/>
+                        <outlet property="translate" destination="Tk9-7M-DEK" id="7WM-ga-SLX"/>
+                        <outlet property="translatedText" destination="LaV-KV-DTJ" id="00K-XX-I2o"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
