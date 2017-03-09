@@ -26,9 +26,8 @@ class ViewController: UIViewController, UITextViewDelegate, UIPickerViewDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
-    
         
-        
+        // Rounding the edges on TextView
         self.textToTranslate.layer.cornerRadius = 5;
         self.translatedText.layer.cornerRadius = 5;
         self.translate.layer.cornerRadius = 5;
@@ -43,7 +42,7 @@ class ViewController: UIViewController, UITextViewDelegate, UIPickerViewDelegate
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+       
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
@@ -124,11 +123,11 @@ class ViewController: UIViewController, UITextViewDelegate, UIPickerViewDelegate
     }
 
     
- 
+ // Selecting a language using the picker view
 
     @IBAction func translate(_ sender: AnyObject) {
         
-        
+
         
     if (languageAnswer == 0)
         {
