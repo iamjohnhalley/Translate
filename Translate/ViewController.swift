@@ -26,6 +26,8 @@ class ViewController: UIViewController, UITextViewDelegate, UIPickerViewDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
+    
+        
         
         self.textToTranslate.layer.cornerRadius = 5;
         self.translatedText.layer.cornerRadius = 5;
@@ -62,6 +64,10 @@ class ViewController: UIViewController, UITextViewDelegate, UIPickerViewDelegate
         
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     
     //hide keybaord when clicking away
     
@@ -77,9 +83,9 @@ class ViewController: UIViewController, UITextViewDelegate, UIPickerViewDelegate
         return (true)
     }
     
+    //textview : resign keyboard
     
-    
-    @objc(textView:shouldChangeTextInRange:replacementText:) func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text:String) -> Bool {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text:String) -> Bool {
         if (text == "\n")
         {
             textToTranslate.resignFirstResponder()
@@ -89,6 +95,34 @@ class ViewController: UIViewController, UITextViewDelegate, UIPickerViewDelegate
          return true
     }
     
+    // placeholder text
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if(textToTranslate.text == "Translate here")
+        {
+            textToTranslate.text = ""
+        }
+        textToTranslate.becomeFirstResponder()
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+ 
+        if(textToTranslate.text == "")
+        {
+            textToTranslate.text = "Translate here"
+        }
+        textToTranslate.resignFirstResponder()
+    }
+    
+    
+    // UIPicker View : customise
+    
+   func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+    let titleData = Array[row]
+    let myTitle = NSAttributedString(string: titleData, attributes: [NSFontAttributeName:UIFont(name: "Arial", size: 14.0)!,NSForegroundColorAttributeName:UIColor.white])
+    return myTitle
+    }
+
     
  
 
@@ -102,7 +136,7 @@ class ViewController: UIViewController, UITextViewDelegate, UIPickerViewDelegate
             let str = textToTranslate.text
             let escapedStr = str?.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
             
-            let langStr = ("en|fr").addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+            let langStr = ("en|spa").addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
             
             let urlStr:String = ("https://api.mymemory.translated.net/get?q="+escapedStr!+"&langpair="+langStr!)
             
@@ -145,12 +179,11 @@ class ViewController: UIViewController, UITextViewDelegate, UIPickerViewDelegate
        
     {
             
-            
-            
+  
             let str = textToTranslate.text
             let escapedStr = str?.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
             
-            let langStr = ("en|spa").addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+            let langStr = ("en|fr").addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
             
             let urlStr:String = ("https://api.mymemory.translated.net/get?q="+escapedStr!+"&langpair="+langStr!)
             
@@ -187,10 +220,6 @@ class ViewController: UIViewController, UITextViewDelegate, UIPickerViewDelegate
                 }
             }
             
-            
-            
-            
-            
         }
     
     
@@ -201,7 +230,7 @@ class ViewController: UIViewController, UITextViewDelegate, UIPickerViewDelegate
         let str = textToTranslate.text
         let escapedStr = str?.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
         
-        let langStr = ("en|fr").addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+        let langStr = ("en|de").addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
         
         let urlStr:String = ("https://api.mymemory.translated.net/get?q="+escapedStr!+"&langpair="+langStr!)
         
@@ -243,21 +272,53 @@ class ViewController: UIViewController, UITextViewDelegate, UIPickerViewDelegate
     }
     
     
-    
+    //text to speach button
 
     @IBAction func speach(_ sender: Any) {
-    
-        let utterace = AVSpeechUtterance(string: translatedText.text!)
-        utterace.voice = AVSpeechSynthesisVoice(language: "de")
-        utterace.rate = 0.5;
         
-        let synthesizer = AVSpeechSynthesizer()
-        synthesizer.speak(utterace);
-    }
+        if (languageAnswer == 0)
+        
+        {
+            
+            let utterace = AVSpeechUtterance(string: translatedText.text!)
+            utterace.voice = AVSpeechSynthesisVoice(language: "es")
+            utterace.rate = 0.5;
+            
+            let synthesizer = AVSpeechSynthesizer()
+            synthesizer.speak(utterace);
+            
+        }
+        
+        
+         else if (languageAnswer == 1)
+            
+        {
+            
+            let utterace = AVSpeechUtterance(string: translatedText.text!)
+            utterace.voice = AVSpeechSynthesisVoice(language: "fr")
+            utterace.rate = 0.5;
+            
+            let synthesizer = AVSpeechSynthesizer()
+            synthesizer.speak(utterace);
+            
+        }
+        
+        
+        else if (languageAnswer == 2) {
+    
+            let utterace = AVSpeechUtterance(string: self.translatedText.text!)
+            utterace.voice = AVSpeechSynthesisVoice(language: "de")
+            utterace.rate = 0.5;
+            
+            let synthesizer = AVSpeechSynthesizer()
+            synthesizer.speak(utterace);
+        }
+        }
+    
+}
     
 
-  
-}
+
 
 
 
