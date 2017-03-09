@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import AVFoundation
 
-class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class ViewController: UIViewController, UITextViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
     
     
@@ -33,8 +34,8 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         pickerView.delegate = self
         pickerView.dataSource = self
         
-        
-    
+        self.textToTranslate.delegate = self
+
         
     }
     
@@ -57,11 +58,42 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         languageAnswer = row
+        languageSelected.text = Array[row]
+        
+    }
+    
+    
+    //hide keybaord when clicking away
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    //return key to hide keyboard
+    
+    func textViewShouldReturn(_ textView: UITextView) -> Bool {
+        
+        self.textToTranslate.resignFirstResponder()
+        return (true)
     }
     
     
     
+    @objc(textView:shouldChangeTextInRange:replacementText:) func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text:String) -> Bool {
+        if (text == "\n")
+        {
+            textToTranslate.resignFirstResponder()
+            return false
+        }
+        
+         return true
+    }
+    
+    
+ 
+
     @IBAction func translate(_ sender: AnyObject) {
+        
         
         
     if (languageAnswer == 0)
@@ -211,8 +243,23 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     }
     
     
-   
+    
+
+    @IBAction func speach(_ sender: Any) {
+    
+        let utterace = AVSpeechUtterance(string: translatedText.text!)
+        utterace.voice = AVSpeechSynthesisVoice(language: "de")
+        utterace.rate = 0.5;
+        
+        let synthesizer = AVSpeechSynthesizer()
+        synthesizer.speak(utterace);
+    }
+    
+
+  
 }
+
+
 
 
 
