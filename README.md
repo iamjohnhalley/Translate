@@ -1,7 +1,5 @@
 # Translate
 A simple iOS translation app written in Swift, using MyMemory Translate API (https://mymemory.translated.net/doc/spec.php).
-
-Used as a teaching assignment for students of Waterford Institute of Technology (http://www.wit.ie).
 Name: John Halley
 Student ID: 20063672
 Assignment 1
@@ -16,6 +14,9 @@ Design & features
 -	I Updated colour scheme using the adobe colour scheme - https://color.adobe.com/
 -	I Updated the activity inspector to suit the look of the application using the IJProgressView found on GitHub https://github.com/Isuru-Nanayakkara/IJProgressView 
 I  then customised this progress view to suit my app
+-	I updated the keyboard to resign when the return key is pressed and also when a user clicks anyway from the keyboard. 
+
+-	I added placeholder text to the translation textView.
 
 -	I then designed a simplistic App icon in all sizes following the apple design principles.
 -	I Created a splash screen which will give users the impression the app is almost loaded.
@@ -29,6 +30,8 @@ I  then customised this progress view to suit my app
 Extra feature
 
 For my extra feature I added a speech reader.  This will allow users to read out their translation in their chosen language.
+
+
 
 
 
