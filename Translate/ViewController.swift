@@ -147,32 +147,33 @@ class ViewController: UIViewController, UITextViewDelegate, UIPickerViewDelegate
         
     
     if (languageAnswer == 0)
-        {
-            
-            let str = textToTranslate.text
-            let escapedStr = str?.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
-            
-            let langStr = ("en|spa").addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
-            
-            let urlStr:String = ("https://api.mymemory.translated.net/get?q="+escapedStr!+"&langpair="+langStr!)
-            
-            let url = URL(string: urlStr)
-            
-            let request = URLRequest(url: url!)// Creating Http Request
-            
-            IJProgressView.shared.showProgressView(view)
-            
-            
-            
-            var result = "<Translation Error>"
-            
-            NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue.main) { response, data, error in
+        
+    {
+        //start the session
+        _ = URLSession.shared
+        
+        
+        let str = textToTranslate.text
+        let escapedStr = str?.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+        let langStr = ("en|spa").addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+        let urlStr:String = ("https://api.mymemory.translated.net/get?q="+escapedStr!+"&langpair="+langStr!)
+        let url = URL(string: urlStr)
+        
+        IJProgressView.shared.showProgressView(view)
+        
+        
+        var result = "<Translation Error>"
+        
+        let task = URLSession.shared.dataTask(with: url! as URL) { (data, response, error) -> Void in
+            if error != nil {
+                print("theres an error in the log")
+            } else {
                 
-                IJProgressView.shared.hideProgressView()
+                
+                
                 
                 if let httpResponse = response as? HTTPURLResponse {
                     if(httpResponse.statusCode == 200){
-                        
                         let jsonDict: NSDictionary!=(try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)) as! NSDictionary
                         
                         if(jsonDict.value(forKey: "responseStatus") as! NSNumber == 200){
@@ -182,43 +183,49 @@ class ViewController: UIViewController, UITextViewDelegate, UIPickerViewDelegate
                         }
                     }
                     
-                    self.translatedText.text = result
+                    DispatchQueue.main.sync() {
+                        IJProgressView.shared.hideProgressView()
+                        self.translatedText.text = result
+                        
+                    }
+                    
                 }
             }
-   
         }
+        
+        
+        task.resume()
+    }
+        
         
     else  if (languageAnswer == 1)
        
     {
-            
-  
-            let str = textToTranslate.text
-            let escapedStr = str?.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
-            
-            let langStr = ("en|fr").addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
-            
-            let urlStr:String = ("https://api.mymemory.translated.net/get?q="+escapedStr!+"&langpair="+langStr!)
-            
-            let url = URL(string: urlStr)
-            
-            let request = URLRequest(url: url!)// Creating Http Request
-            
-            //var data = NSMutableData()var data = NSMutableData()
-            
-        IJProgressView.shared.showProgressView(view)
-
+        //start the session
+        _ = URLSession.shared
         
-            
-            var result = "<Translation Error>"
-            
-            NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue.main) { response, data, error in
+        
+        let str = textToTranslate.text
+        let escapedStr = str?.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+        let langStr = ("en|fr").addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+        let urlStr:String = ("https://api.mymemory.translated.net/get?q="+escapedStr!+"&langpair="+langStr!)
+        let url = URL(string: urlStr)
+        
+        IJProgressView.shared.showProgressView(view)
+        
+        
+        var result = "<Translation Error>"
+        
+        let task = URLSession.shared.dataTask(with: url! as URL) { (data, response, error) -> Void in
+            if error != nil {
+                print("theres an error in the log")
+            } else {
                 
-               IJProgressView.shared.hideProgressView()
+                
+                
                 
                 if let httpResponse = response as? HTTPURLResponse {
                     if(httpResponse.statusCode == 200){
-                        
                         let jsonDict: NSDictionary!=(try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)) as! NSDictionary
                         
                         if(jsonDict.value(forKey: "responseStatus") as! NSNumber == 200){
@@ -228,63 +235,76 @@ class ViewController: UIViewController, UITextViewDelegate, UIPickerViewDelegate
                         }
                     }
                     
-                    self.translatedText.text = result
+                    DispatchQueue.main.sync() {
+                        IJProgressView.shared.hideProgressView()
+                        self.translatedText.text = result
+                        
+                    }
+                    
                 }
             }
-            
         }
+        
+        
+        task.resume()
+}
+        
     
-    
+
      else
         
     {
+        //start the session
+        _ = URLSession.shared
+        
         
         let str = textToTranslate.text
         let escapedStr = str?.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
-        
         let langStr = ("en|de").addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
-        
         let urlStr:String = ("https://api.mymemory.translated.net/get?q="+escapedStr!+"&langpair="+langStr!)
-        
         let url = URL(string: urlStr)
         
-        let request = URLRequest(url: url!)// Creating Http Request
+         IJProgressView.shared.showProgressView(view)
         
-        //var data = NSMutableData()var data = NSMutableData()
-        
-        
-        IJProgressView.shared.showProgressView(view)
-        
-        
-       
         
         var result = "<Translation Error>"
-        
-        NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue.main) { response, data, error in
-            
-            
-            IJProgressView.shared.hideProgressView()
-            
-            
-            if let httpResponse = response as? HTTPURLResponse {
+
+        let task = URLSession.shared.dataTask(with: url! as URL) { (data, response, error) -> Void in
+            if error != nil {
+                print("theres an error in the log")
+            } else {
+                
+               
+                
+                
+                if let httpResponse = response as? HTTPURLResponse {
                 if(httpResponse.statusCode == 200){
-                    
-                    let jsonDict: NSDictionary!=(try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)) as! NSDictionary
-                    
+                 let jsonDict: NSDictionary!=(try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)) as! NSDictionary
+                
                     if(jsonDict.value(forKey: "responseStatus") as! NSNumber == 200){
                         let responseData: NSDictionary = jsonDict.object(forKey: "responseData") as! NSDictionary
-                        
+                
                         result = responseData.object(forKey: "translatedText") as! String
                     }
-                }
-                
+              }
+                    
+            DispatchQueue.main.sync() {
+                IJProgressView.shared.hideProgressView()
                 self.translatedText.text = result
-            }
-            }
-        
-        }
-    
+                
+          }
+
+         }
+       }
     }
+        
+   
+        task.resume()
+    }
+    
+ }
+    
+
     
     
     //text to speach button
