@@ -10,13 +10,10 @@ import UIKit
 import AVFoundation
 
 
-
-
 class ViewController: UIViewController, UITextViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
     
 
-    
     @IBOutlet weak var textToTranslate: UITextView!
     @IBOutlet weak var translatedText: UITextView!
     @IBOutlet weak var pickerView: UIPickerView!
@@ -47,20 +44,8 @@ class ViewController: UIViewController, UITextViewDelegate, UIPickerViewDelegate
         
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-       
-    }
+
     
-    func close() {
-        IJProgressView.shared.hideProgressView()
-    }
-    
-    
-    
-    func setCloseTimer() {
-        _ = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(close), userInfo: nil, repeats: false)
-    }
 
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
@@ -84,6 +69,7 @@ class ViewController: UIViewController, UITextViewDelegate, UIPickerViewDelegate
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
+   
     
     
     //hide keybaord when clicking away
@@ -138,6 +124,19 @@ class ViewController: UIViewController, UITextViewDelegate, UIPickerViewDelegate
     let titleData = Array[row]
     let myTitle = NSAttributedString(string: titleData, attributes: [NSFontAttributeName:UIFont(name: "Arial", size: 14.0)!,NSForegroundColorAttributeName:UIColor.white])
     return myTitle
+    }
+
+    
+    //progressView functionality
+    
+    func close() {
+        IJProgressView.shared.hideProgressView()
+    }
+    
+    
+    
+    func setCloseTimer() {
+        _ = Timer.scheduledTimer(timeInterval: 20, target: self, selector: #selector(close), userInfo: nil, repeats: false)
     }
 
     
@@ -348,33 +347,7 @@ class ViewController: UIViewController, UITextViewDelegate, UIPickerViewDelegate
             let synthesizer = AVSpeechSynthesizer()
             synthesizer.speak(utterace);
         }
-        }
-    
-    
-    
-//    let request = NSMutableURLRequest(url: URL(string: "YOUR_URL_HERE" ,param: param))!,
-//    cachePolicy: .useProtocolCachePolicy,
-//    timeoutInterval:60)
-//    request.httpMethod = "POST" // POST ,GET, PUT What you want
-//    
-//    let session = URLSession.shared
-//    
-//    
-//    
-//    let dataTask = session.dataTask(with: request as URLRequest) {data,response,error in
-//        
-//        do {
-//            if let jsonResult = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as? NSDictionary {
-//                print("ASynchronous\(jsonResult)")
-//            }
-//        } catch let error as NSError {
-//            print(error.localizedDescription)
-//        }
-//        
-//    }
-//    dataTask.resume()
-    
-
+    }
 
     
     
