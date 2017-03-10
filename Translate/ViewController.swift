@@ -210,6 +210,7 @@ class ViewController: UIViewController, UITextViewDelegate, UIPickerViewDelegate
         let urlStr:String = ("https://api.mymemory.translated.net/get?q="+escapedStr!+"&langpair="+langStr!)
         let url = URL(string: urlStr)
         
+        //progress animation
         IJProgressView.shared.showProgressView(view)
         
         
