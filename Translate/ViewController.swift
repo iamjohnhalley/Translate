@@ -9,9 +9,13 @@
 import UIKit
 import AVFoundation
 
+
+
+
 class ViewController: UIViewController, UITextViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
     
+
     
     @IBOutlet weak var textToTranslate: UITextView!
     @IBOutlet weak var translatedText: UITextView!
@@ -19,12 +23,15 @@ class ViewController: UIViewController, UITextViewDelegate, UIPickerViewDelegate
     @IBOutlet weak var languageSelected: UILabel!
     @IBOutlet weak var translate: UIButton!
     
-    
+   
+    var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
     var Array = ["Spanish", "French", "German"]
     var languageAnswer = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         
         
         // Rounding the edges on TextView
@@ -44,6 +51,17 @@ class ViewController: UIViewController, UITextViewDelegate, UIPickerViewDelegate
         super.didReceiveMemoryWarning()
        
     }
+    
+    func close() {
+        IJProgressView.shared.hideProgressView()
+    }
+    
+    
+    
+    func setCloseTimer() {
+        _ = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(close), userInfo: nil, repeats: false)
+    }
+
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return Array [row]
@@ -127,8 +145,7 @@ class ViewController: UIViewController, UITextViewDelegate, UIPickerViewDelegate
 
     @IBAction func translate(_ sender: AnyObject) {
         
-
-        
+    
     if (languageAnswer == 0)
         {
             
@@ -143,18 +160,15 @@ class ViewController: UIViewController, UITextViewDelegate, UIPickerViewDelegate
             
             let request = URLRequest(url: url!)// Creating Http Request
             
-            //var data = NSMutableData()var data = NSMutableData()
+            IJProgressView.shared.showProgressView(view)
             
-            let indicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-            indicator.center = view.center
-            view.addSubview(indicator)
-            indicator.startAnimating()
+            
             
             var result = "<Translation Error>"
             
             NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue.main) { response, data, error in
                 
-                indicator.stopAnimating()
+                IJProgressView.shared.hideProgressView()
                 
                 if let httpResponse = response as? HTTPURLResponse {
                     if(httpResponse.statusCode == 200){
@@ -192,16 +206,15 @@ class ViewController: UIViewController, UITextViewDelegate, UIPickerViewDelegate
             
             //var data = NSMutableData()var data = NSMutableData()
             
-            let indicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-            indicator.center = view.center
-            view.addSubview(indicator)
-            indicator.startAnimating()
+        IJProgressView.shared.showProgressView(view)
+
+        
             
             var result = "<Translation Error>"
             
             NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue.main) { response, data, error in
                 
-                indicator.stopAnimating()
+               IJProgressView.shared.hideProgressView()
                 
                 if let httpResponse = response as? HTTPURLResponse {
                     if(httpResponse.statusCode == 200){
@@ -239,16 +252,19 @@ class ViewController: UIViewController, UITextViewDelegate, UIPickerViewDelegate
         
         //var data = NSMutableData()var data = NSMutableData()
         
-        let indicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-        indicator.center = view.center
-        view.addSubview(indicator)
-        indicator.startAnimating()
+        
+        IJProgressView.shared.showProgressView(view)
+        
+        
+       
         
         var result = "<Translation Error>"
         
         NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue.main) { response, data, error in
             
-            indicator.stopAnimating()
+            
+            IJProgressView.shared.hideProgressView()
+            
             
             if let httpResponse = response as? HTTPURLResponse {
                 if(httpResponse.statusCode == 200){
@@ -313,6 +329,34 @@ class ViewController: UIViewController, UITextViewDelegate, UIPickerViewDelegate
             synthesizer.speak(utterace);
         }
         }
+    
+    
+    
+//    let request = NSMutableURLRequest(url: URL(string: "YOUR_URL_HERE" ,param: param))!,
+//    cachePolicy: .useProtocolCachePolicy,
+//    timeoutInterval:60)
+//    request.httpMethod = "POST" // POST ,GET, PUT What you want
+//    
+//    let session = URLSession.shared
+//    
+//    
+//    
+//    let dataTask = session.dataTask(with: request as URLRequest) {data,response,error in
+//        
+//        do {
+//            if let jsonResult = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as? NSDictionary {
+//                print("ASynchronous\(jsonResult)")
+//            }
+//        } catch let error as NSError {
+//            print(error.localizedDescription)
+//        }
+//        
+//    }
+//    dataTask.resume()
+    
+
+
+    
     
 }
     
